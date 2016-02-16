@@ -1,40 +1,37 @@
 package br.com.caelum.lojavirtual.modelo;
 
-import static org.junit.Assert.fail;
+//import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 
 import org.junit.Test;
 
+/**
+ * <h1>Um livro deve</h1>
+ * 	<ul>
+ * 	<li>ter título, descrição e capa definidos</li>
+ * 	<li>ter um Autor associado</li>
+ * 	<li>ter uma categoria associada</li>
+ * 	</ul>
+ * <h1>Um livro não deve</h1>
+ * 	<ul>
+ * 	<li>ter valores negativos de preços</li>
+ * 	<li>ter valor zero de preços</li>
+ * 	</ul>
+
+ * @author wilsonsf
+ */
 public class LivroTest {
-
-//	@BeforeClass
-//	public static void setUpBeforeClass() throws Exception {
-//	}
-//
-//	@AfterClass
-//	public static void tearDownAfterClass() throws Exception {
-//	}
-//
-//	@Before
-//	public void setUp() throws Exception {
-//	}
-//
-//	@After
-//	public void tearDown() throws Exception {
-//	}
-
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirValoresNegativosParaPrecos() {
-		Livro livro = new Livro();
-		livro.setPrecoDigital(BigDecimal.valueOf(-5.0));
-		livro.setPrecoImpresso(BigDecimal.valueOf(-50));
-		livro.setPrecoCombo(BigDecimal.valueOf(-50));
+		new Livro("", "", "", BigDecimal.valueOf(-5), BigDecimal.valueOf(-5), BigDecimal.valueOf(-5));
+
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void naoDevePermitirValorZeradoParaPrecos() {
+		new Livro("Tiulo", "Descrição", "URL da Imagem", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
 	}
 
 }
