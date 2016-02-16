@@ -24,6 +24,21 @@ import org.junit.Test;
 public class LivroTest {
 
 	@Test(expected=IllegalArgumentException.class)
+	public void naoDevePermitirLivroSemTitulo() {
+		new Livro("", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void naoDevePermitirLivroSemDescricao() {
+		new Livro("Título", "", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void naoDevePermitirLivroSemURL() {
+		new Livro("Título", "Descrição", "", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
+	}
+
+	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirValoresNegativosParaPrecos() {
 		new Livro("", "", "", BigDecimal.valueOf(-5), BigDecimal.valueOf(-5), BigDecimal.valueOf(-5));
 
@@ -32,6 +47,11 @@ public class LivroTest {
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirValorZeradoParaPrecos() {
 		new Livro("Tiulo", "Descrição", "URL da Imagem", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+	}
+
+	@SuppressWarnings("unused")
+	private Livro criaLivroDeTeste() {
+		return new Livro("Título", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
 	}
 
 }

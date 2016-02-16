@@ -42,8 +42,12 @@ public class Livro implements Serializable {
 
 	public Livro(String titulo, String descricao, String capa, BigDecimal precoDigital, BigDecimal precoImpresso,
 			BigDecimal precoCombo) {
-		if (!(precoDigital.compareTo(BigDecimal.ZERO) > 0) || !(precoImpresso.compareTo(BigDecimal.ZERO) > 0) || !(precoCombo.compareTo(BigDecimal.ZERO) > 0)) {
-			throw new IllegalArgumentException("preço deve ser maior que zero");
+		if (ehValorMenorIgualAZero(precoDigital) || ehValorMenorIgualAZero(precoImpresso) || ehValorMenorIgualAZero(precoCombo)) {
+			throw new IllegalArgumentException("Preço deve ser maior que zero");
+		}
+
+		if (titulo.isEmpty()) {
+			throw new IllegalArgumentException("Título não pode ser vazio");
 		}
 
 		this.titulo = titulo;
@@ -52,6 +56,10 @@ public class Livro implements Serializable {
 		this.precoDigital = precoDigital;
 		this.precoImpresso = precoImpresso;
 		this.precoCombo = precoCombo;
+	}
+
+	private boolean ehValorMenorIgualAZero(BigDecimal precoDigital) {
+		return !(precoDigital.compareTo(BigDecimal.ZERO) > 0);
 	}
 
 	public Integer getId() {
@@ -87,6 +95,9 @@ public class Livro implements Serializable {
 	}
 
 	public void setPrecoDigital(BigDecimal precoDigital) {
+		if (ehValorMenorIgualAZero(precoDigital)) {
+			throw new IllegalArgumentException("Preço Digital: não pode ser negativo");
+		}
 		this.precoDigital = precoDigital;
 	}
 
@@ -95,6 +106,9 @@ public class Livro implements Serializable {
 	}
 
 	public void setPrecoImpresso(BigDecimal precoImpresso) {
+		if (ehValorMenorIgualAZero(precoImpresso)) {
+			throw new IllegalArgumentException("Preço Impresso: não pode ser negativo");
+		}
 		this.precoImpresso = precoImpresso;
 	}
 
@@ -103,6 +117,9 @@ public class Livro implements Serializable {
 	}
 
 	public void setPrecoCombo(BigDecimal precoCombo) {
+		if (ehValorMenorIgualAZero(precoCombo)) {
+			throw new IllegalArgumentException("Preço Combo: não pode ser negativo");
+		}
 		this.precoCombo = precoCombo;
 	}
 
