@@ -1,9 +1,12 @@
 package br.com.caelum.lojavirtual.modelo;
 
-//import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -23,35 +26,70 @@ import org.junit.Test;
  */
 public class LivroTest {
 
+	private Livro livro;
+
+	@Before
+	public void setUp() {
+		this.livro = criaLivroDeTeste();
+	}
+
+	@Test
+	public void devePoderVincularUmAutor() {
+		List<Autor> autor = criaAutorDeTeste();
+		this.livro.vincula(autor);
+
+
+		assertEquals(1,this.livro.getAutores().size());
+
+	}
+
+	@Test
+	public void devePoderVincularVariosAutores() {
+		Autor autor1 = new Autor("Nome1");
+		Autor autor2 = new Autor("Nome2");
+
+		List<Autor> autores = Arrays.asList(autor1,autor2);
+
+		this.livro.vincula(autores);
+	}
+
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirLivroSemTitulo() {
-		new Livro("", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
+		new Livro("", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5), criaAutorDeTeste());
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirLivroSemDescricao() {
-		new Livro("Título", "", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
+		new Livro("Título", "", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5), criaAutorDeTeste());
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirLivroSemURL() {
-		new Livro("Título", "Descrição", "", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
+		new Livro("Título", "Descrição", "", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5), criaAutorDeTeste());
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirValoresNegativosParaPrecos() {
-		new Livro("", "", "", BigDecimal.valueOf(-5), BigDecimal.valueOf(-5), BigDecimal.valueOf(-5));
+		new Livro("", "", "", BigDecimal.valueOf(-5), BigDecimal.valueOf(-5), BigDecimal.valueOf(-5), criaAutorDeTeste());
 
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirValorZeradoParaPrecos() {
-		new Livro("Tiulo", "Descrição", "URL da Imagem", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+		new Livro("Tiulo", "Descrição", "URL da Imagem", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, criaAutorDeTeste());
 	}
 
-	@SuppressWarnings("unused")
+	@Test(expected=IllegalArgumentException.class)
+	public void naoDevePermitirAtorVazio() {
+		new Livro("Tiulo", "Descrição", "URL da Imagem", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, criaAutorDeTeste());
+	}
+
 	private Livro criaLivroDeTeste() {
-		return new Livro("Título", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
+		return new Livro("Título", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5), criaAutorDeTeste());
+	}
+
+	private List<Autor> criaAutorDeTeste() {
+		return Arrays.asList(new Autor("Nome1"));
 	}
 
 }

@@ -2,6 +2,7 @@ package br.com.caelum.lojavirtual.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -35,6 +37,9 @@ public class Livro implements Serializable {
 	@DecimalMin(value="0.01")
 	private BigDecimal precoCombo;
 
+	@NotNull
+	private List<Autor> autores;
+
 
 	/** CDI only */
 	@Deprecated
@@ -42,13 +47,21 @@ public class Livro implements Serializable {
 
 	public Livro(String titulo, String descricao, String capa, BigDecimal precoDigital, BigDecimal precoImpresso,
 			BigDecimal precoCombo) {
-		if (ehValorMenorIgualAZero(precoDigital) || ehValorMenorIgualAZero(precoImpresso) || ehValorMenorIgualAZero(precoCombo)) {
-			throw new IllegalArgumentException("Preço deve ser maior que zero");
-		}
 
-		if (titulo.isEmpty()) {
+	}
+
+	public Livro(String titulo, String descricao, String capa, BigDecimal precoDigital, BigDecimal precoImpresso,
+			BigDecimal precoCombo, List<Autor> autores) {
+		if(ehValorMenorIgualAZero(precoDigital) || ehValorMenorIgualAZero(precoImpresso) || ehValorMenorIgualAZero(precoCombo))
+			throw new IllegalArgumentException("Preço deve ser maior que zero");
+		if(titulo.isEmpty())
 			throw new IllegalArgumentException("Título não pode ser vazio");
-		}
+		if(descricao.isEmpty())
+			throw new IllegalArgumentException("Descrição não pode ser vazia");
+		if(capa.isEmpty())
+			throw new IllegalArgumentException("Capa não pode ser vazia");
+		if(autores == null || autores.isEmpty())
+			throw new IllegalArgumentException("Autor não pode ser vazio");
 
 		this.titulo = titulo;
 		this.descricao = descricao;
@@ -56,10 +69,15 @@ public class Livro implements Serializable {
 		this.precoDigital = precoDigital;
 		this.precoImpresso = precoImpresso;
 		this.precoCombo = precoCombo;
+		this.autores = autores;
 	}
 
 	private boolean ehValorMenorIgualAZero(BigDecimal precoDigital) {
 		return !(precoDigital.compareTo(BigDecimal.ZERO) > 0);
+	}
+
+	public void vincula(List<Autor> autores) {
+		this.autores = autores;
 	}
 
 	public Integer getId() {
@@ -95,9 +113,8 @@ public class Livro implements Serializable {
 	}
 
 	public void setPrecoDigital(BigDecimal precoDigital) {
-		if (ehValorMenorIgualAZero(precoDigital)) {
+		if (ehValorMenorIgualAZero(precoDigital))
 			throw new IllegalArgumentException("Preço Digital: não pode ser negativo");
-		}
 		this.precoDigital = precoDigital;
 	}
 
@@ -106,9 +123,8 @@ public class Livro implements Serializable {
 	}
 
 	public void setPrecoImpresso(BigDecimal precoImpresso) {
-		if (ehValorMenorIgualAZero(precoImpresso)) {
+		if (ehValorMenorIgualAZero(precoImpresso))
 			throw new IllegalArgumentException("Preço Impresso: não pode ser negativo");
-		}
 		this.precoImpresso = precoImpresso;
 	}
 
@@ -117,10 +133,17 @@ public class Livro implements Serializable {
 	}
 
 	public void setPrecoCombo(BigDecimal precoCombo) {
-		if (ehValorMenorIgualAZero(precoCombo)) {
+		if (ehValorMenorIgualAZero(precoCombo))
 			throw new IllegalArgumentException("Preço Combo: não pode ser negativo");
-		}
 		this.precoCombo = precoCombo;
+	}
+
+	public List<Autor> getAutores() {
+		return this.autores;
+	}
+
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
 	}
 
 }
