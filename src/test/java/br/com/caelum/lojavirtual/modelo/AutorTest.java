@@ -1,8 +1,8 @@
 package br.com.caelum.lojavirtual.modelo;
 
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
 
-import static org.junit.Assert.*;
+import java.math.BigDecimal;
 
 import org.junit.Test;
 
@@ -23,13 +23,6 @@ import org.junit.Test;
  */
 public class AutorTest {
 
-	private Autor autor;
-
-	@Before
-	public void setUp() {
-		this.autor = new Autor("Nome");
-	}
-
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDeveTerNomeEmBranco() {
 		new Autor("");
@@ -41,8 +34,15 @@ public class AutorTest {
 	}
 
 	@Test
-	public void devePermitirVincularUmLivro() {
-		assertFalse(true);
+	public void deveVincularUmLivro() {
+		Autor autor = new Autor("João");
+
+		Livro livro = new Livro("Titulo", "Descrição", "Capa", BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN);
+		livro.adicionaUnicoAutor(autor);
+		autor.adicionaUnico(livro);
+
+		assertEquals(1, livro.getAutores().size());
+		assertEquals(1, autor.getLivros().size());
 	}
 
 }

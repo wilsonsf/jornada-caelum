@@ -2,6 +2,7 @@ package br.com.caelum.lojavirtual.modelo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -38,7 +39,7 @@ public class Livro implements Serializable {
 	private BigDecimal precoCombo;
 
 	@NotNull
-	private List<Autor> autores;
+	private List<Autor> autores = new LinkedList<>();
 
 
 	/** CDI only */
@@ -76,8 +77,12 @@ public class Livro implements Serializable {
 		return !(precoDigital.compareTo(BigDecimal.ZERO) > 0);
 	}
 
-	public void vincula(List<Autor> autores) {
-		this.autores = autores;
+	public void adicionaVarios(List<Autor> autores) {
+		this.autores.addAll(autores);
+	}
+
+	public void adicionaUnicoAutor(Autor autor) {
+		this.autores.add(autor);
 	}
 
 	public Integer getId() {
@@ -145,5 +150,6 @@ public class Livro implements Serializable {
 	public void setAutores(List<Autor> autores) {
 		this.autores = autores;
 	}
+
 
 }

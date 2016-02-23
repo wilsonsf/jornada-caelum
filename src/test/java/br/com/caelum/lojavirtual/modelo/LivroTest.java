@@ -36,7 +36,7 @@ public class LivroTest {
 	@Test
 	public void devePoderVincularUmAutor() {
 		List<Autor> autor = criaAutorDeTeste();
-		this.livro.vincula(autor);
+		this.livro.adicionaVarios(autor);
 
 
 		assertEquals(1,this.livro.getAutores().size());
@@ -50,7 +50,7 @@ public class LivroTest {
 
 		List<Autor> autores = Arrays.asList(autor1,autor2);
 
-		this.livro.vincula(autores);
+		this.livro.adicionaVarios(autores);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
