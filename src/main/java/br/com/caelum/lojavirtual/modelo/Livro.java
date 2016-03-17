@@ -9,14 +9,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-@Table(name="livros")
 @Entity
+@Table(name="livros")
 public class Livro implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -38,7 +39,8 @@ public class Livro implements Serializable {
 	@DecimalMin(value="0.01")
 	private BigDecimal precoCombo;
 
-	@NotNull
+	@Valid
+	@ManyToMany(mappedBy="livros")
 	private List<Autor> autores = new LinkedList<>();
 
 

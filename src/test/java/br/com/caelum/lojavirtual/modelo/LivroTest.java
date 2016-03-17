@@ -35,8 +35,7 @@ public class LivroTest {
 
 	@Test
 	public void devePoderVincularUmAutor() {
-		List<Autor> autor = criaAutorDeTeste();
-		this.livro.adicionaVarios(autor);
+		this.livro.adicionaUnicoAutor(criaAutorDeTeste());
 
 
 		assertEquals(1,this.livro.getAutores().size());
@@ -55,41 +54,41 @@ public class LivroTest {
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirLivroSemTitulo() {
-		new Livro("", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5), criaAutorDeTeste());
+		new Livro("", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirLivroSemDescricao() {
-		new Livro("Título", "", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5), criaAutorDeTeste());
+		new Livro("Título", "", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirLivroSemURL() {
-		new Livro("Título", "Descrição", "", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5), criaAutorDeTeste());
+		new Livro("Título", "Descrição", "", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirValoresNegativosParaPrecos() {
-		new Livro("", "", "", BigDecimal.valueOf(-5), BigDecimal.valueOf(-5), BigDecimal.valueOf(-5), criaAutorDeTeste());
+		new Livro("", "", "", BigDecimal.valueOf(-5), BigDecimal.valueOf(-5), BigDecimal.valueOf(-5));
 
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirValorZeradoParaPrecos() {
-		new Livro("Tiulo", "Descrição", "URL da Imagem", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, criaAutorDeTeste());
+		new Livro("Tiulo", "Descrição", "URL da Imagem", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
 	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void naoDevePermitirAtorVazio() {
-		new Livro("Tiulo", "Descrição", "URL da Imagem", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, criaAutorDeTeste());
+		new Livro("Tiulo", "Descrição", "URL da Imagem", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
 	}
 
 	private Livro criaLivroDeTeste() {
-		return new Livro("Título", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5), criaAutorDeTeste());
+		return new Livro("Título", "Descrição", "URL da Imagem", BigDecimal.valueOf(5), BigDecimal.valueOf(5), BigDecimal.valueOf(5));
 	}
 
-	private List<Autor> criaAutorDeTeste() {
-		return Arrays.asList(new Autor("Nome1"));
+	private Autor criaAutorDeTeste() {
+		return new Autor("Nome1");
 	}
 
 }

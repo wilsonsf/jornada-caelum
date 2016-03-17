@@ -9,8 +9,8 @@
 
     <jta-data-source>java:/jornadaDS</jta-data-source>
 
-    <class>br.com.caelum.lojavirtual.modelo.Livro</class>
-    <class>br.com.caelum.lojavirtual.modelo.Autor</class>
+    <!-- <class>br.com.caelum.lojavirtual.modelo.Livro</class> -->
+    <!-- <class>br.com.caelum.lojavirtual.modelo.Autor</class> -->
 
     <!-- opções: ALL, NONE, ENABLE_SELECTIVE, DISABLE_SELECTIVE, UNSPECIFIED -->
     <!-- <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> -->
@@ -22,11 +22,12 @@
       <property name="hibernate.format_sql" value="false" />
 
       <!-- poderia ser: update, create, create-drop, validate, none -->
-      <property name="hibernate.hbm2ddl.auto" value="create" />
+      <!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
 
       <property name="hibernate.cache.use_second_level_cache" value="true" />
       <property name="hibernate.cache.use_query_cache" value="true"/>
       <property name="hibernate.generate_statistics" value="true"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
 
 	  </properties>
 	</persistence-unit>

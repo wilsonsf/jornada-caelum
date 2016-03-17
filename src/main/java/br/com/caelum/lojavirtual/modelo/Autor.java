@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -26,7 +27,8 @@ public class Autor implements Serializable {
 	@NotBlank
 	private String nome;
 
-	@ManyToMany
+	@Valid
+	@ManyToMany(cascade={})
 	private List<Livro> livros = new LinkedList<>();
 
 	/** CDI only */
