@@ -6,7 +6,16 @@
 
 <ui:composition template="/_template.xhtml">
   <ui:define name="corpo">
-    
+    <h:form>
+      <h:panelGrid>
+        <h:outputLabel value="Descrição" for="descricao"  />
+        <h:inputText value="" id="descricao" required="true">
+          <f:validateLength minimum="1" maximum="5"/>
+        </h:inputText>
+        
+        <h:commandButton action="null" value="Submete" />
+      </h:panelGrid>
+    </h:form>
   </ui:define>
 </ui:composition>
 </html>
