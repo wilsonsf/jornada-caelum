@@ -9,8 +9,8 @@
 
     <jta-data-source>java:/jornadaDS</jta-data-source>
 
-    <!-- <class>br.com.caelum.lojavirtual.modelo.Livro</class> -->
-    <!-- <class>br.com.caelum.lojavirtual.modelo.Autor</class> -->
+    <class>br.com.caelum.lojavirtual.modelo.Livro</class>
+    <class>br.com.caelum.lojavirtual.modelo.Autor</class>
 
     <!-- opções: ALL, NONE, ENABLE_SELECTIVE, DISABLE_SELECTIVE, UNSPECIFIED -->
     <!-- <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> -->
@@ -19,10 +19,10 @@
 	    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 
       <property name="hibernate.show_sql" value="true" />
-      <property name="hibernate.format_sql" value="false" />
+      <property name="hibernate.format_sql" value="true" />
 
       <!-- poderia ser: update, create, create-drop, validate, none -->
-      <!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+      <property name="hibernate.hbm2ddl.auto" value="validate" />
 
       <property name="hibernate.cache.use_second_level_cache" value="true" />
       <property name="hibernate.cache.use_query_cache" value="true"/>

@@ -1,6 +1,5 @@
 package br.com.caelum.lojavirtual.modelo;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,9 +17,9 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name="livros")
-public class Livro implements Serializable {
+public class Livro implements Persistivel{
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 20160526L;
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -29,7 +28,7 @@ public class Livro implements Serializable {
 	private String titulo;
 	@NotBlank
 	private String descricao;
-	@NotBlank
+
 	private String capa;
 
 	@DecimalMin(value="0.01")
@@ -43,18 +42,12 @@ public class Livro implements Serializable {
 	@ManyToMany(mappedBy="livros")
 	private List<Autor> autores = new LinkedList<>();
 
-
 	/** CDI only */
 	@Deprecated
 	public Livro () {}
 
 	public Livro(String titulo, String descricao, String capa, BigDecimal precoDigital, BigDecimal precoImpresso,
 			BigDecimal precoCombo) {
-
-	}
-
-	public Livro(String titulo, String descricao, String capa, BigDecimal precoDigital, BigDecimal precoImpresso,
-			BigDecimal precoCombo, List<Autor> autores) {
 		if(ehValorMenorIgualAZero(precoDigital) || ehValorMenorIgualAZero(precoImpresso) || ehValorMenorIgualAZero(precoCombo))
 			throw new IllegalArgumentException("Preço deve ser maior que zero");
 		if(titulo.isEmpty())
@@ -63,8 +56,7 @@ public class Livro implements Serializable {
 			throw new IllegalArgumentException("Descrição não pode ser vazia");
 		if(capa.isEmpty())
 			throw new IllegalArgumentException("Capa não pode ser vazia");
-		if(autores == null || autores.isEmpty())
-			throw new IllegalArgumentException("Autor não pode ser vazio");
+
 
 		this.titulo = titulo;
 		this.descricao = descricao;
@@ -72,6 +64,15 @@ public class Livro implements Serializable {
 		this.precoDigital = precoDigital;
 		this.precoImpresso = precoImpresso;
 		this.precoCombo = precoCombo;
+	}
+
+	public Livro(String titulo, String descricao, String capa, BigDecimal precoDigital, BigDecimal precoImpresso,
+			BigDecimal precoCombo, List<Autor> autores) {
+		this(titulo,descricao,capa,precoDigital, precoImpresso, precoCombo);
+
+		if(autores == null || autores.isEmpty())
+			throw new IllegalArgumentException("Autor não pode ser vazio");
+
 		this.autores = autores;
 	}
 
@@ -87,8 +88,14 @@ public class Livro implements Serializable {
 		this.autores.add(autor);
 	}
 
+	@Override
 	public Integer getId() {
 		return this.id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTitulo() {
@@ -152,6 +159,4 @@ public class Livro implements Serializable {
 	public void setAutores(List<Autor> autores) {
 		this.autores = autores;
 	}
-
-
 }
