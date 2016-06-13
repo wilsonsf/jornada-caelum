@@ -1,21 +1,40 @@
 package br.com.caelum.lojavirtual.mb;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
+import java.io.Serializable;
 
+import javax.enterprise.inject.Model;
+import javax.inject.Inject;
+import javax.transaction.Transactional;
+
+import br.com.caelum.lojavirtual.annotations.LivroRepository;
+import br.com.caelum.lojavirtual.dao.GenericDao;
 import br.com.caelum.lojavirtual.modelo.Livro;
 
-@Named
-@RequestScoped
-public class LivroBean {
+@Model
+public class LivroBean implements Serializable {
 
-	private Livro livro;
+	private static final long serialVersionUID = 1L;
 
-	public LivroBean() {
+	@Inject @LivroRepository
+	private GenericDao<Livro> dao;
+
+	@SuppressWarnings("deprecation")
+	private Livro livro = new Livro();
+
+	@Transactional
+	public void grava() {
+		if (this.livro.getId() == null) {
+			this.dao.adiciona(this.livro);
+		} else {
+			this.dao.atualiza(this.livro);
+		}
+
+		limpaFormularioDeLivro();
 	}
 
-	public String gravar() {
-		return null;
+	@SuppressWarnings("deprecation")
+	private void limpaFormularioDeLivro() {
+		this.livro = new Livro();
 	}
 
 	public Livro getLivro() {
