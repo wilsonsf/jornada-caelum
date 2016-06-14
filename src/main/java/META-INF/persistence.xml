@@ -4,14 +4,15 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-	<persistence-unit name="jornadacaelum">
+	<persistence-unit name="jornadacaelum" transaction-type="JTA">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
     <jta-data-source>java:/jornadaDS</jta-data-source>
 
-    <!-- <class>br.com.caelum.lojavirtual.modelo.Livro</class> -->
-    <!-- <class>br.com.caelum.lojavirtual.modelo.Autor</class> -->
+    <class>br.com.caelum.lojavirtual.modelo.Livro</class>
+    <class>br.com.caelum.lojavirtual.modelo.Autor</class>
 
+    <!-- Diretivas do Infinispan -->
     <!-- opções: ALL, NONE, ENABLE_SELECTIVE, DISABLE_SELECTIVE, UNSPECIFIED -->
     <!-- <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> -->
 
@@ -19,15 +20,22 @@
 	    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 
       <property name="hibernate.show_sql" value="true" />
-      <property name="hibernate.format_sql" value="false" />
+      <property name="hibernate.format_sql" value="true" />
 
       <!-- poderia ser: update, create, create-drop, validate, none -->
-      <!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+      <property name="hibernate.hbm2ddl.auto" value="validate" />
 
+      <!-- Infinispan -->
       <property name="hibernate.cache.use_second_level_cache" value="true" />
+      
+      <!-- Cache em Consultas -->
       <property name="hibernate.cache.use_query_cache" value="true"/>
+      
       <property name="hibernate.generate_statistics" value="true"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      
+      <!-- Definições da JPA sobre criaão de artefatos -->
+      <!-- none, create, drop-and-create, drop -->
+      <!-- <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/> -->
 
 	  </properties>
 	</persistence-unit>

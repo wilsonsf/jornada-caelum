@@ -10,17 +10,17 @@ import javax.persistence.PersistenceUnit;
 
 @ApplicationScoped
 public class EntityManagerProducer {
-	
+
 	@PersistenceUnit
 	private EntityManagerFactory factory;
-	
+
 	@Produces @RequestScoped
 	public EntityManager getEntityManager() {
-		return factory.createEntityManager();
+		return this.factory.createEntityManager();
 	}
-	
+
 	public void close(@Disposes EntityManager manager) {
 		manager.close();
 	}
-	
+
 }

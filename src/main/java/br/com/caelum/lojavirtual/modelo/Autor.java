@@ -1,6 +1,5 @@
 package br.com.caelum.lojavirtual.modelo;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,9 +15,9 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name="autores")
-public class Autor implements Serializable {
+public class Autor implements Persistivel {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 20160526L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -39,6 +38,24 @@ public class Autor implements Serializable {
 		if (nome == null || nome.isEmpty())
 			throw new IllegalArgumentException("Nome não pode ser nulo ou em branco");
 
+		this.nome = nome;
+	}
+
+	@Override
+	public Integer getId() {
+		return this.id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
