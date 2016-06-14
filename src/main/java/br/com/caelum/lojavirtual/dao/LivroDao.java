@@ -3,13 +3,14 @@ package br.com.caelum.lojavirtual.dao;
 import java.util.Collections;
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import br.com.caelum.lojavirtual.annotations.LivroRepository;
 import br.com.caelum.lojavirtual.modelo.Livro;
 
-
+@RequestScoped
 @LivroRepository
 public class LivroDao implements GenericDao<Livro> {
 

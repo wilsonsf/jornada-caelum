@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import br.com.caelum.lojavirtual.annotations.LivroRepository;
-import br.com.caelum.lojavirtual.dao.GenericDao;
+import br.com.caelum.lojavirtual.dao.LivroDao;
 import br.com.caelum.lojavirtual.modelo.Livro;
 
 @Model
@@ -15,8 +15,7 @@ public class LivroBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject @LivroRepository
-	private GenericDao<Livro> dao;
+	@Inject @LivroRepository private LivroDao dao;
 
 	@SuppressWarnings("deprecation")
 	private Livro livro = new Livro();

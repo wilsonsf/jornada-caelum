@@ -2,10 +2,12 @@ package br.com.caelum.lojavirtual.dao;
 
 import java.util.List;
 
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 
+@Default
 public class GenericDaoImpl<T> implements GenericDao<T> {
 
 	private final Class<T> classe;
